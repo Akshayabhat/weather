@@ -6,7 +6,7 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[]{WebConfig.class, JPAConfig.class};
+		return new Class[]{WebConfig.class, JPAConfig.class,SwaggerConfig.class};
 	}
 
 	@Override

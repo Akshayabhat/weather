@@ -20,10 +20,9 @@ public class WeatherController {
 	
 	private WeatherService service;
 	
-	public WeatherController(WeatherService service){
+	public WeatherController(WeatherService service) {
 		this.service = service;
 	}
-	
 	
 	@ApiOperation(value="Create weather reading", notes="Creates a reading")
 	@ApiResponses(value={
@@ -35,7 +34,6 @@ public class WeatherController {
 		return service.create(weather);
 	}
 	
-	
 	@ApiOperation(value="Get cities", notes="Gets a list of cities")
 	@ApiResponses(value={
 	@ApiResponse(code=200,message="Success"),
@@ -45,8 +43,7 @@ public class WeatherController {
 	public List<String> getAllCities(){
 		return service.getAllCities();
 	}
-	
-	
+		
 	@ApiOperation(value="Get latest reading for city", notes="Gets latest weather reading for given city")
 	@ApiResponses(value={
 	@ApiResponse(code=200,message="Success"),

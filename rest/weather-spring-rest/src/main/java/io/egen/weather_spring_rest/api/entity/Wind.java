@@ -16,7 +16,7 @@ public class Wind {
 	private String speed;
 	private String degree;
 	
-	public Wind(){
+	public Wind() {
 		this.windId = UUID.randomUUID().toString();
 	}
 	

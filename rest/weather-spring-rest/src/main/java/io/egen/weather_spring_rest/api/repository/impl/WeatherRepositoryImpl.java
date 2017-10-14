@@ -42,7 +42,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 		if(!cityWeather.isEmpty())
 			return cityWeather.get(0);
 		return null;
-	}
+		}
 
 	@Override
 	public String getLatestWeatherPropertyForCity(String property, String city) {
@@ -58,7 +58,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 		else if(property.equalsIgnoreCase("pressure"))
 				return latestWeather.getPressure();
 		else
-			// property invalid
+			/** property invalid */
 			return "";		
 		}
 	
@@ -70,12 +70,10 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 	    if(!results.isEmpty())
 	    	return WeatherUtility.hourlyAverageUtility(results,city);
 	    return null;
-    
-	}
+       }
     
 	@Override
 	public List<Weather> getDailyAverageForCity(String city) {
-		
 		Query query = em.createNamedQuery("Weather.getDailyAverage");
 	    query.setParameter("pcity", city);
 	    List<Object[]> results = query.getResultList();

@@ -11,7 +11,7 @@ public class WeatherUtility {
 	public static List<Weather> hourlyAverageUtility(List<Object[]> results, String city){
 		List<Weather> weather = new ArrayList<Weather>();
 		
-		for(Object [] result: results){
+		for(Object [] result: results) {
 			Weather w = new Weather();
 			
 		    String dateHour = result[0].toString()+"T"+result[1].toString()+":00:00.000Z";
@@ -28,10 +28,8 @@ public class WeatherUtility {
 	        w.setWind(wind);
 	        weather.add(w);
 		}
-		
-
 		return weather;
-	}
+		}
 	
 	public static List<Weather> dailyAverageUtility(List<Object[]> results, String city){
 		
@@ -54,5 +52,5 @@ public class WeatherUtility {
 			weather.add(w);
 		}	
 		return weather;	
-	}
+		}
 }

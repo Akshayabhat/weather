@@ -45,9 +45,12 @@ public class Weather {
 	private Wind wind;
 	
 	@Transient
-	private String formatter;
+	/** To format Date, depending on operation performed: 
+	 * Regular post with timestamp (default)/just date for getDailyAverageForCity 
+	 */
+	private String formatter; 
 	
-	public Weather(){
+	public Weather() {
 		this.weatherId = UUID.randomUUID().toString();
 		this.formatter = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 	}
@@ -107,7 +110,6 @@ public class Weather {
 		try {
 			this.timestamp = date.parse(timestamp);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -126,7 +128,4 @@ public class Weather {
 				+ humidity + ", pressure=" + pressure + ", temperature=" + temperature + ", timestamp=" + timestamp
 				+ ", wind=" + wind + ", formatter=" + formatter + "]";
 	}
-	
-	
-
 }
