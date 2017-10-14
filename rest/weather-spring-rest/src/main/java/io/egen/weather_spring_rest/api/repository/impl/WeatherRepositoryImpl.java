@@ -46,7 +46,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
 	@Override
 	public String getLatestWeatherPropertyForCity(String property, String city) {
-		TypedQuery <Weather>query = em.createNamedQuery("Weather.getLatestWeatherPropertyForCity",Weather.class);
+		TypedQuery <Weather>query = em.createNamedQuery("Weather.getLatestWeatherForCity",Weather.class);
 		query.setParameter("pcity", city);
 		List<Weather> cityWeather = query.getResultList();
 		if(cityWeather.isEmpty()) return "";

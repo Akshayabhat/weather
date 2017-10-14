@@ -19,13 +19,12 @@ import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
-	@NamedQuery (name="Weather.getAllCities", query="SELECT DISTINCT w.city from Weather w"),
-	@NamedQuery (name="Weather.getLatestWeatherForCity", query="SELECT w from Weather w where w.city=:pcity order by w.timestamp desc"),
-	@NamedQuery (name="Weather.getLatestWeatherPropertyForCity", query="SELECT w from Weather w where w.city=:pcity order by w.timestamp desc"),
-	@NamedQuery (name="Weather.getDailyAverage", query="Select date(w.timestamp), avg(w.humidity), avg(w.pressure), avg(w.temperature), avg(wi.speed), avg(wi.degree)" +
-														"from Weather w JOIN w.wind wi where w.city=:pcity group by 1"),
-	@NamedQuery (name="Weather.getHourlyAverage", query="Select date(w.timestamp), DATE_FORMAT(w.timestamp,'%H') as hour, avg(w.humidity), avg(w.pressure), avg(w.temperature), avg(wi.speed), avg(wi.degree)" +
-			"from Weather w JOIN w.wind wi where w.city=:pcity group by 1,2")
+	@NamedQuery (name="Weather.getAllCities", query="SELECT DISTINCT w.city FROM Weather w"),
+	@NamedQuery (name="Weather.getLatestWeatherForCity", query="SELECT w FROM Weather w where w.city=:pcity ORDER BY w.timestamp desc"),
+	@NamedQuery (name="Weather.getDailyAverage", query="SELECT DATE(w.timestamp), avg(w.humidity), avg(w.pressure), avg(w.temperature), avg(wi.speed), avg(wi.degree)" +
+														"FROM Weather w JOIN w.wind wi WHERE w.city=:pcity GROUP BY 1"),
+	@NamedQuery (name="Weather.getHourlyAverage", query="SELECT DATE(w.timestamp), DATE_FORMAT(w.timestamp,'%H') as hour, avg(w.humidity), avg(w.pressure), avg(w.temperature), avg(wi.speed), avg(wi.degree)" +
+			"FROM Weather w JOIN w.wind wi WHERE w.city=:pcity GROUP BY 1,2")
 
 })
 public class Weather {
