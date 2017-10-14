@@ -12,3 +12,8 @@
 **/RemoteSystemsTempFiles
 
 **/target/*
+
+**/.DS_Store
+
+# Eclipse files (?)
+rest/.recommenders/
