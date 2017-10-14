@@ -21,23 +21,23 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 	private EntityManager em;
 	
 	@Override
-	public List<String> getAllCities() {
-		TypedQuery <String>query = em.createNamedQuery("Weather.getAllCities",String.class);
-		return query.getResultList();
-	}
-	
-	@Override
 	@Transactional
 	public Weather create(Weather weather){
 		em.persist(weather);
 		return weather;
 	}
+	
+	@Override
+	public List<String> getAllCities() {
+		TypedQuery <String>query = em.createNamedQuery("Weather.getAllCities",String.class);
+		return query.getResultList();
+	}
+	
 
 	@Override
 	public Weather getLatestWeatherForCity(String city) {
 		TypedQuery <Weather>query = em.createNamedQuery("Weather.getLatestWeatherForCity",Weather.class);
 		query.setParameter("pcity", city);
-		System.out.println(city);
 		List<Weather> cityWeather = query.getResultList();
 		if(!cityWeather.isEmpty())
 			return cityWeather.get(0);

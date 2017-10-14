@@ -19,14 +19,15 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 	
 	@Override
+	public Weather create(Weather weather){
+		return repository.create(weather);
+	}
+	
+	@Override
 	public List<String> getAllCities() {
 		return repository.getAllCities();
 	}
     
-	@Override
-	public Weather create(Weather weather){
-		return repository.create(weather);
-	}
 	@Override
 	public Weather getLatestWeatherForCity(String city) {
 		Weather existing = repository.getLatestWeatherForCity(city);
