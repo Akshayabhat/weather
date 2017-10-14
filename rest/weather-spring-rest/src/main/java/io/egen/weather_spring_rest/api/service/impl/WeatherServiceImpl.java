@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import io.egen.weather_spring_rest.api.entity.Weather;
+import io.egen.weather_spring_rest.api.exception.NotFoundException;
 import io.egen.weather_spring_rest.api.repository.WeatherRepository;
 import io.egen.weather_spring_rest.api.service.WeatherService;
 
@@ -31,16 +32,17 @@ public class WeatherServiceImpl implements WeatherService {
 		Weather existing = repository.getLatestWeatherForCity(city);
 		if(existing == null)
 		{
-			//throw not found exception
+			throw new NotFoundException("City "+city+" not found");
 		}
 		return existing;
 	}
 
 	@Override
-	public String getLatestWeatherPropertyForCity(String property, String City) {
-		String existing = repository.getLatestWeatherPropertyForCity(property, City);
+	public String getLatestWeatherPropertyForCity(String property, String city) {
+		String existing = repository.getLatestWeatherPropertyForCity(property, city);
 		if(existing.isEmpty()){
-			// throw not found exception
+			
+			throw new NotFoundException("City "+city+" and/or property " + property +" not found");
 		}
 		
 		return existing;
@@ -50,7 +52,7 @@ public class WeatherServiceImpl implements WeatherService {
 	public List<Weather> getHourlyAverageForCity(String city) {
 		List<Weather> existing = repository.getHourlyAverageForCity(city);
 		if(existing == null){
-			// throw not found exception
+			throw new NotFoundException("City "+city+" not found");
 		}
 		return existing;
 	}
@@ -59,7 +61,7 @@ public class WeatherServiceImpl implements WeatherService {
 	public List<Weather> getDailyAverageForCity(String city) {
 		List<Weather> existing = repository.getDailyAverageForCity(city);
 		if(existing.isEmpty()){
-			
+			throw new NotFoundException("City "+city+" not found");
 		}
 		return existing;
 	}

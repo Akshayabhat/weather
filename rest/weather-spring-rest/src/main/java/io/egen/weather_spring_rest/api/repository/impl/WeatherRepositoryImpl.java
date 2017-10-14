@@ -1,27 +1,16 @@
 package io.egen.weather_spring_rest.api.repository.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.Parameter;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.egen.weather_spring_rest.api.entity.Weather;
-import io.egen.weather_spring_rest.api.entity.Wind;
 import io.egen.weather_spring_rest.api.repository.WeatherRepository;
 import io.egen.weather_spring_rest.api.util.WeatherUtility;
 
@@ -50,8 +39,9 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 		query.setParameter("pcity", city);
 		System.out.println(city);
 		List<Weather> cityWeather = query.getResultList();
-		System.out.println(cityWeather.get(0));
-		return cityWeather.get(0);
+		if(!cityWeather.isEmpty())
+			return cityWeather.get(0);
+		return null;
 	}
 
 	@Override
@@ -59,7 +49,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 		TypedQuery <Weather>query = em.createNamedQuery("Weather.getLatestWeatherPropertyForCity",Weather.class);
 		query.setParameter("pcity", city);
 		List<Weather> cityWeather = query.getResultList();
-		if(cityWeather.isEmpty()) return null;
+		if(cityWeather.isEmpty()) return "";
 		Weather latestWeather = cityWeather.get(0);
 		if(property.equalsIgnoreCase("temperature"))
 			return latestWeather.getTemperature();
@@ -77,7 +67,9 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 		Query query = em.createNamedQuery("Weather.getHourlyAverage");
 	    query.setParameter("pcity", city);
 	    List<Object[]> results = query.getResultList();
-	    return WeatherUtility.hourlyAverageUtility(results,city);
+	    if(!results.isEmpty())
+	    	return WeatherUtility.hourlyAverageUtility(results,city);
+	    return null;
     
 	}
     
@@ -87,6 +79,9 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 		Query query = em.createNamedQuery("Weather.getDailyAverage");
 	    query.setParameter("pcity", city);
 	    List<Object[]> results = query.getResultList();
-	    return WeatherUtility.dailyAverageUtility(results,city);	}
+	    if(!results.isEmpty())
+	    	return WeatherUtility.dailyAverageUtility(results,city);	
+	    return null;
+	    }
 
 }
