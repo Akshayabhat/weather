@@ -4,10 +4,11 @@ import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -21,6 +22,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 public class JPAConfig {
 	
+	@Autowired
+	private Environment env;
 	@Bean
 	public LocalContainerEntityManagerFactoryBean emf() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -36,9 +39,9 @@ public class JPAConfig {
 		
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setUrl("db.url");
-		ds.setUsername("db.user");
-		ds.setPassword("db.password");
+		ds.setUrl(env.getProperty("db.url"));
+		ds.setUsername(env.getProperty("db.user","root"));
+		ds.setPassword(env.getProperty("db.password","14494"));
 		
 		return ds;
 	}
@@ -51,9 +54,9 @@ public class JPAConfig {
 	private Properties jpaProperties() {
 		Properties props = new Properties();
 		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		props.setProperty("hibernate.hbm2ddl.auto", "hibernate.hbm2ddl");
-		props.setProperty("hibernate.show_sql", "hibernate.show.sql");	
-		props.setProperty("hibernate.format_sql", "hibernate.format.sql");
+		props.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl"));
+		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show.sql"));	
+		props.setProperty("hibernate.format_sql", env.getProperty("hibernate.format.sql"));
 		return props;
 		
 	}
